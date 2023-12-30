@@ -66,6 +66,7 @@ int main(int argc, char *argv[]) {
 
 // int create_pthread(void* args){
 //     pthread_t thread;
+
     
 //     if (pthread_create(&thread, NULL, copy_directory, (void *)args) != 0) {
 //         fprintf(stderr, "Error creating thread\n");
