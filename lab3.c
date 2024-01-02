@@ -116,9 +116,6 @@ void* copy_file(void* arg) {
     if (n == -1) {
         perror("read");
     }
-    free(info->src);
-    free(info->dest);
-    free(info);
     close(fd_src);
     close(fd_dest);
 }
