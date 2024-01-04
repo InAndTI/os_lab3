@@ -67,6 +67,8 @@ int main(int argc, char *argv[]) {
 // int create_pthread(void* args){
 //     pthread_t thread;
 
+
+
     
 //     if (pthread_create(&thread, NULL, copy_directory, (void *)args) != 0) {
 //         fprintf(stderr, "Error creating thread\n");
@@ -182,12 +184,18 @@ void* copy_directory(void* arg) {
         //         }
         //     }
             //printf("%s\n",src);
-            pthread_create(&tid[count], &attr, copy_directory, (void*)infor1);
+            int err = pthread_create(&tid[count], &attr, copy_directory, (void*)infor1);
+            if (err) {
+                fprintf(stderr, "Ошибка при создании потока: %s\n", strerror(err));
+            }
             //create_pthread((void*[]){arg, src, dest});
             //copy_directory();
         } else if (S_ISREG(statbuf.st_mode)) {
-            pthread_create(&tid[count], &attr, copy_file, (void*)infor1);
-            copy_file((void*)infor1);
+            int err = pthread_create(&tid[count], &attr, copy_file, (void*)infor1);
+            if (err) {
+                fprintf(stderr, "Ошибка при создании потока: %s\n", strerror(err));
+            }
+            //copy_file((void*)infor1);
         }
         count++;
     }
