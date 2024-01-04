@@ -41,8 +41,8 @@ int main(int argc, char *argv[]) {
 
     // information->src = ((char**)argv)[1];
     // information->dest = ((char**)argv)[2];
-    printf("+%s\n", information->src);
-    printf("-%s\n", information->dest);
+    // printf("+%s\n", information->src);
+    // printf("-%s\n", information->dest);
     
     if (pthread_attr_init(&attr) != 0) {
         perror("pthread_attr_init");
@@ -96,7 +96,7 @@ void* copy_file(void* arg) {
     }
 
     if ((fd_dest = open(info->dest, O_WRONLY | O_CREAT | O_TRUNC, 0666)) == -1) {
-        printf("2");
+        // printf("2");
         perror("open-2");
         close(fd_src);
         pthread_mutex_unlock(&mutex); 
@@ -128,8 +128,8 @@ void* copy_directory(void* arg) {
     // char* src_path = ((char**)arg)[1];
     // char* dest_path = ((char**)arg)[2];
     //printf("----------%s\n",src_path);
-    printf("%s\n", infor->src);
-    printf("%s\n", infor->dest);
+    // printf("%s\n", infor->src);
+    // printf("%s\n", infor->dest);
     DIR *dir;
     //data in_info[100];
     struct dirent *entry;
@@ -187,6 +187,7 @@ void* copy_directory(void* arg) {
             int err = pthread_create(&tid[count], &attr, copy_directory, (void*)infor1);
             if (err) {
                 fprintf(stderr, "Ошибка при создании потока: %s\n", strerror(err));
+                exit(1);
             }
             //create_pthread((void*[]){arg, src, dest});
             //copy_directory();
@@ -194,6 +195,7 @@ void* copy_directory(void* arg) {
             int err = pthread_create(&tid[count], &attr, copy_file, (void*)infor1);
             if (err) {
                 fprintf(stderr, "Ошибка при создании потока: %s\n", strerror(err));
+                exit(1);
             }
             //copy_file((void*)infor1);
         }
