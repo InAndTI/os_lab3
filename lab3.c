@@ -207,4 +207,5 @@ void* copy_directory(void* arg) {
     //pthread_join(tid, NULL);
     closedir(dir);
     pthread_exit(NULL);
+    
 }
